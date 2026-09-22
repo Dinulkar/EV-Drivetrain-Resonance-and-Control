@@ -1,0 +1,89 @@
+                         ELECTRICAL SYSTEM
+              ┌─────────────────────────────────┐
+              │                                 │
+              │       R                         │
+              │   ┌────────┐                    │
+              └───│ Gain R │◄──── Motor Current│
+                  └────────┘                    │
+                                               │
+Motor Supply                                   │
+Voltage                                        │
+   Vs                                          │
+    │                                          │
+    ▼                                          │
+ ┌─────────┐     ┌─────┐     ┌─────┐           │
+ │ Sum     │────►│ 1/L │────►│ 1/s │────► Motor Current
+ │ + - -   │     └─────┘     └─────┘           │
+ └─────────┘                                    │
+      ▲                                         │
+      │        ┌────────┐                       │
+      └────────│ Gain k │◄──── Motor Speed      │
+               │ Back   │                       │
+               │ EMF    │                       │
+               └────────┘                       │
+              └─────────────────────────────────┘
+
+
+                         MOTOR TORQUE
+
+ Motor Current ─────► [ Gain k ] ─────► Motor Torque
+                                      T_M = k i_M
+
+
+                     MOTOR-SIDE DYNAMICS
+
+                            ┌──────────── Shaft Torque
+                            │
+                            ▼
+ Motor Torque ───────► [ Sum + - ]
+                            │
+                            ▼
+                         [ 1/J_M ]
+                            │
+                            ▼
+                          [ 1/s ]
+                            │
+                            ▼
+                       Motor Speed
+                            │
+                            ▼
+                          [ 1/s ]
+                            │
+                            ▼
+                       Motor Angle
+
+
+                       FLEXIBLE SHAFT
+
+ Motor Angle ──────────┐
+                       ▼
+                    [ Sum + - ] ─────► Δθ ─────► [ Ks ]
+                       ▲                           │
+ Roll Angle ───────────┘                           │
+                                                   ▼
+                                              Shaft Torque
+                                                   │
+                        ┌──────────────────────────┴──────┐
+                        │                                 │
+                        ▼                                 ▼
+                 motor reaction                     roll drive
+
+
+                       ROLL / WHEEL SIDE
+
+ Shaft Torque ─────────► [ Sum + - ] ◄──────── Load Torque
+                              │
+                              ▼
+                           [ 1/Ip ]
+                              │
+                              ▼
+                            [ 1/s ]
+                              │
+                              ▼
+                      Roll / Wheel Speed
+                              │
+                              ▼
+                            [ 1/s ]
+                              │
+                              ▼
+                       Roll / Wheel Angle
