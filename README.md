@@ -1,66 +1,78 @@
-# EV-Drivetrain-Resonance-and-Control
+## EV Drivetrain Model
 
-MATLAB/Simulink simulation of an electric vehicle drivetrain with a DC traction motor, flexible drive shaft, wheel/load inertia, torsional resonance analysis, load disturbances, and closed-loop speed control.
+This project interprets the original mechatronic system as a simplified
+electric-vehicle drivetrain.
 
-## Overview
+The original system contains:
 
-This project investigates the dynamic behavior of a simplified electric vehicle drivetrain.
+- electrical resistance `R`
+- electrical inductance `L`
+- DC motor with motor constant `k`
+- driven rotational load with polar moment of inertia `Ip`
+- source voltage `Vs`
+- mechanical load torque `ML`
 
-The drivetrain consists of:
+The original project assumes a rigid shaft between the electric motor and
+the driven load.
 
-- DC traction motor
-- Motor electrical dynamics
-- Motor rotor inertia
-- Flexible drive shaft
-- Wheel / vehicle-side equivalent inertia
-- External road-load torque
-- Speed feedback controller
+The extension investigated in this repository replaces that rigid
+connection with a torsionally flexible drive shaft.
 
-Unlike a rigid drivetrain model, the motor and wheel are allowed to rotate at different instantaneous angular velocities because the drive shaft has finite torsional stiffness and damping.
-
-This makes it possible to investigate:
-
-- motor current response
-- motor and wheel speed oscillations
-- drivetrain torsional vibration
-- shaft torque
-- shaft twist angle
-- resonance frequencies
-- response to road-load disturbances
-- periodic excitation
-- closed-loop speed regulation
+No additional motor inertia is introduced because a separate motor rotor
+inertia is not specified in the original problem.
 
 ---
 
-## EV Drivetrain Representation
+## Original Parameters
 
-The original mechanical system is interpreted as an electric vehicle drivetrain:
+The parameters provided in the original problem are:
 
-| Model Variable | EV Interpretation |
+| Parameter | Value | Description |
+|---|---:|---|
+| `R` | 1 Ω | Electrical resistance |
+| `L` | 1 H | Electrical inductance |
+| `Ip` | 1 kg·m² | Polar moment of inertia of the driven roll/load |
+| `k` | 10 | DC motor constant |
+
+The original excitation cases are:
+
+| Input | Value |
+|---|---:|
+| Voltage step magnitude | 1 V |
+| Voltage step time | 0.1 s |
+| Load torque step magnitude | 1 Nm |
+| Load torque step time | 0.8 s |
+
+---
+
+## Electric-Vehicle Interpretation
+
+The variables are interpreted in an EV drivetrain context as follows:
+
+| Original Variable | EV Interpretation |
 |---|---|
-| `Vs` | Battery / inverter output voltage |
-| `iM` | Traction motor current |
-| `omega_M` | Motor angular speed |
-| `omega_R` | Wheel / axle angular speed |
+| `Vs` | Traction-motor supply voltage |
+| `iM` | Traction-motor current |
+| `omegaM` | Motor-side angular speed |
+| `Ip` | Equivalent driven wheel / vehicle-side rotational inertia |
+| `ML` | External road/load torque |
 | `MM` | Motor electromagnetic torque |
-| `ML` | Road / vehicle load torque |
-| `Jm` | Motor rotor inertia |
-| `Jr` | Wheel and reflected vehicle inertia |
-| `Ks` | Drivetrain torsional stiffness |
-| `Cs` | Drivetrain torsional damping |
-| `DeltaTheta` | Drivetrain shaft twist angle |
-| `ShaftTorque` | Torque transmitted through the drivetrain |
+| `vM` | Motor back-EMF |
+| Flexible shaft torque | Drivetrain transmitted torque |
+| Shaft twist | Torsional deformation of the drivetrain |
 
-The simplified drivetrain structure is
+The model is therefore represented conceptually as
 
-```text
-Battery / Inverter
+Battery / Power Supply
         |
         v
- Traction Motor
+Electrical Motor Model
         |
         v
- Flexible Shaft
+Traction Motor
         |
         v
- Wheel / Vehicle Load
+Flexible Drive Shaft
+        |
+        v
+Equivalent Wheel / Vehicle Load
