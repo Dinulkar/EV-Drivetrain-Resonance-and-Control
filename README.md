@@ -1,5 +1,7 @@
 ## EV Drivetrain Model
 
+![Project Status](https://img.shields.io/badge/Status-Completed-green)
+
 This project interprets the original mechatronic system as a simplified
 electric-vehicle drivetrain.
 
